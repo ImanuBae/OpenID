@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenID Connect Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            🔐
+        </div>
+        <h1>OpenID Connect</h1>
+        <p class="subtitle">Demo Authentication Flow</p>
+
+        <!-- Login Section -->
+        <div id="loginSection" class="auth-section">
+            <div class="flow-diagram">
+                <h3 style="text-align: center; margin-bottom: 15px;">OpenID Connect Flow</h3>
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div>Client khởi tạo authorization request</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div>Authorization Server xác thực người dùng</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div>Trả về authorization code</div>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div>Client đổi code lấy ID Token & Access Token</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="simulateLogin()">
+                <span id="loginText">🚀 Bắt đầu OpenID Connect Flow</span>
+                <span id="loginLoader" class="loading hidden"></span>
+            </button>
+
+            <div style="margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="showTokenInfo()">
+                    📋 Xem thông tin Token
+                </button>
+            </div>
+        </div>
+
+        <!-- User Info Section -->
+        <div id="userSection" class="auth-section hidden">
+            <div class="alert alert-success">
+                ✅ Đăng nhập thành công!
+            </div>
+            
+            <div class="user-info">
+                <h3>👤 Thông tin người dùng</h3>
+                <div class="info-item">
+                    <span class="info-label">ID:</span>
+                    <span class="info-value" id="userId"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value" id="userEmail"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tên:</span>
+                    <span class="info-value" id="userName"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Iss (Issuer):</span>
+                    <span class="info-value" id="userIss"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Aud (Audience):</span>
+                    <span class="info-value" id="userAud"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Exp (Expires):</span>
+                    <span class="info-value" id="userExp"></span>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="showTokenDetails()">
+                🔍 Chi tiết Token
+            </button>
+            
+            <button class="btn btn-danger" onclick="logout()">
+                🚪 Đăng xuất
+            </button>
+        </div>
+
+        <!-- Token Info Section -->
+        <div id="tokenSection" class="auth-section hidden">
+            <div class="user-info">
+                <h3>🎫 Token Information</h3>
+                <div class="info-item">
+                    <span class="info-label">ID Token:</span>
+                    <span class="info-value" id="idTokenDisplay"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Access Token:</span>
+                    <span class="info-value" id="accessTokenDisplay"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Refresh Token:</span>
+                    <span class="info-value" id="refreshTokenDisplay"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Token Type:</span>
+                    <span class="info-value">Bearer</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Scope:</span>
+                    <span class="info-value">openid profile email</span>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary" onclick="backToLogin()">
+                ← Quay lại
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
