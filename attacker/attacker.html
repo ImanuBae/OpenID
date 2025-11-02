@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔴 Attacker Dashboard - Security Demo</title>
+    <link rel="stylesheet" href="attacker.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔴 ATTACKER DASHBOARD</h1>
+            <p style="color: #ff0000;">Security Testing & Vulnerability Exploitation Demo</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="color: #00ff00; font-weight: bold;">🎯 Target URL:</label>
+            <input type="text" id="targetUrl" class="target-input" value="http://127.0.0.1:5501" placeholder="http://127.0.0.1:5501">
+        </div>
+
+        <div class="attack-grid">
+            <!-- Attack 1: Token Stealing via XSS -->
+            <div class="attack-card">
+                <h3>💉 Attack #1: XSS Token Stealing <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Khai thác lỗ hổng XSS để đánh cắp tokens từ memory/localStorage. Khi victim đăng nhập, tokens sẽ bị gửi về attacker.</p>
+                <button class="attack-btn" onclick="injectXSS()">🚀 Launch XSS Attack</button>
+                <button class="info-btn" onclick="showXSSInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+
+            <!-- Attack 2: CSRF Attack -->
+            <div class="attack-card">
+                <h3>🎭 Attack #2: CSRF Attack <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Tạo form tự động submit để thực hiện hành động giả mạo khi victim truy cập trang này.</p>
+                <button class="attack-btn" onclick="launchCSRF()">🚀 Launch CSRF Attack</button>
+                <button class="info-btn" onclick="showCSRFInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+
+            <!-- Attack 3: Phishing Page -->
+            <div class="attack-card">
+                <h3>🎣 Attack #3: Phishing Attack <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Tạo trang giả mạo y hệt target để đánh cắp credentials của victim.</p>
+                <button class="attack-btn" onclick="openPhishing()">🚀 Open Phishing Page</button>
+                <button class="info-btn" onclick="showPhishingInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+
+            <!-- Attack 4: Token Replay -->
+            <div class="attack-card">
+                <h3>🔄 Attack #4: Token Replay Attack <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Sử dụng lại token đã bị đánh cắp để giả mạo victim và truy cập tài nguyên.</p>
+                <button class="attack-btn" onclick="replayToken()">🚀 Replay Stolen Token</button>
+                <button class="info-btn" onclick="showReplayInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+
+            <!-- Attack 5: Authorization Code Interception -->
+            <div class="attack-card">
+                <h3>🔓 Attack #5: Code Interception <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Đánh cắp authorization code từ redirect URL khi victim login.</p>
+                <button class="attack-btn" onclick="interceptCode()">🚀 Setup Code Interceptor</button>
+                <button class="info-btn" onclick="showCodeInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+
+            <!-- Attack 6: Session Hijacking -->
+            <div class="attack-card">
+                <h3>👤 Attack #6: Session Hijacking <span class="status-badge badge-vulnerable">VULNERABLE</span></h3>
+                <p>Chiếm quyền session của victim thông qua stolen tokens hoặc cookies.</p>
+                <button class="attack-btn" onclick="hijackSession()">🚀 Hijack Session</button>
+                <button class="info-btn" onclick="showHijackInfo()">ℹ️ Xem Chi Tiết</button>
+            </div>
+        </div>
+
+        <!-- Console Log -->
+        <div class="console">
+            <h3>📊 Attack Console</h3>
+            <button class="clear-btn" onclick="clearConsole()">Clear Console</button>
+            <div id="consoleOutput"></div>
+        </div>
+
+        <!-- Stolen Data Display -->
+        <div class="stolen-data">
+            <h3>💰 Stolen Data</h3>
+            <div id="stolenDataOutput">
+                <p style="color: #666;">Chưa có dữ liệu bị đánh cắp...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="attacker.js"></script>
+</body>
+</html>

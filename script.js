@@ -77,7 +77,7 @@ function generateMockTokens(userEmail, userName) {
     const now = Math.floor(Date.now() / 1000);
     const userId = "user" + Math.random().toString(36).substr(2, 9);
     
-    // Mock JWT-like tokens (simplified for demo)
+    // SỬA: Gán vào biến 'tokens', không phải 'window.tokens'
     tokens = {
         id_token: generateMockJWT({
             iss: "https://demo-idp.example.com",
@@ -133,32 +133,49 @@ function populateUserInfo() {
         document.getElementById('userIss').textContent = currentUser.iss;
         document.getElementById('userAud').textContent = currentUser.aud;
         document.getElementById('userExp').textContent = currentUser.exp;
+        document.getElementById('welcomeMessage').innerHTML = 
+            'Chào mừng, ' + currentUser.name;
     }
 }
 
 function showTokenInfo() {
+    // Ẩn cả hai phần chính
     document.getElementById('loginSection').classList.add('hidden');
+    document.getElementById('userSection').classList.add('hidden'); 
+    
+    // Hiển thị phần token
     document.getElementById('tokenSection').classList.remove('hidden');
     
     if (tokens) {
-        document.getElementById('idTokenDisplay').textContent = 
-            tokens.id_token.substring(0, 50) + '...';
-        document.getElementById('accessTokenDisplay').textContent = 
-            tokens.access_token.substring(0, 20) + '...';
-        document.getElementById('refreshTokenDisplay').textContent = 
-            tokens.refresh_token.substring(0, 20) + '...';
+        // Hiển thị TOÀN BỘ token thay vì rút gọn
+        document.getElementById('idTokenDisplay').textContent = tokens.id_token;
+        document.getElementById('accessTokenDisplay').textContent = tokens.access_token;
+        document.getElementById('refreshTokenDisplay').textContent = tokens.refresh_token;
+    } else {
+        // Xử lý trường hợp xem token khi chưa đăng nhập
+        document.getElementById('idTokenDisplay').textContent = "N/A (chưa đăng nhập)";
+        document.getElementById('accessTokenDisplay').textContent = "N/A (chưa đăng nhập)";
+        document.getElementById('refreshTokenDisplay').textContent = "N/A (chưa đăng nhập)";
     }
 }
 
 function showTokenDetails() {
-    if (tokens) {
-        alert(`ID Token (first 100 chars):\n${tokens.id_token.substring(0, 100)}...\n\nAccess Token:\n${tokens.access_token}\n\nRefresh Token:\n${tokens.refresh_token}`);
-    }
+    // SỬA: Bỏ alert(), thay bằng cách gọi showTokenInfo()
+    showTokenInfo();
 }
 
 function backToLogin() {
+    // Ẩn phần token
     document.getElementById('tokenSection').classList.add('hidden');
-    document.getElementById('loginSection').classList.remove('hidden');
+    
+    // Kiểm tra xem người dùng đã đăng nhập chưa
+    if (currentUser) {
+        // Nếu đã đăng nhập, quay lại trang user
+        document.getElementById('userSection').classList.remove('hidden');
+    } else {
+        // Nếu chưa, quay lại trang login
+        document.getElementById('loginSection').classList.remove('hidden');
+    }
 }
 
 function logout() {
